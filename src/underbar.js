@@ -192,13 +192,11 @@
   //   }); // should be 5, regardless of the iterator function passed in
   //          No accumulator is given so the first element is used.
   _.reduce = function(collection, iterator, accumulator) {
-    var initialize;
+    var initialize = false;
     
     if (arguments.length > 2) {
       initialize = true;
-    } else {
-      initialize = false; 
-    }
+    } 
 
     _.each(collection, function(item) {
       if (initialize) {
@@ -207,12 +205,10 @@
         accumulator = item;
         initialize = true;
       }
-    });
+    });  
 
     return accumulator;
   };
-
-  //var sum = _.reduce([1, 2, 3], function(acc, item){ return memo + num; }); => 6
 
   // Determine if the array or object contains a given value (using `===`).
   _.contains = function(collection, target) {
