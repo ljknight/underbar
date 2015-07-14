@@ -38,13 +38,14 @@
   // Like first, but for the last elements. If n is undefined, return just the
   // last element.
   _.last = function(array, n) {
+
     if (n === undefined) {
       return array[array.length-1];
     } else {
-      if (array.length-n >= 0) {
-        return array.slice(array.length-n, array.length);
+      if (n > array.length) {
+        return array;
       } else {
-        return array.slice(0, array.length);
+        return array.slice(array.length-n, array.length);
       }
     }
   };
@@ -125,22 +126,24 @@
   };
 
   // Produce a duplicate-free version of the array.
-  _.uniq = function(array) {
-    var result = [];
-    array.sort();
 
-    _.each(array, function(item, index) {
-       if (array[index] !== array[index+1]) {
-        result.push(array[index]);
-      }
+  /*_.uniq = function(array, isSorted, iterator) {
+    var result = [];
+    array.sort(); // need to rethink this
+
+    if (isSorted) {
+      _.each(array, function(item, index) {
+         if (array[index] !== array[index+1]) {
+          result.push(array[index]);
+        }
     });
 
    
 
     return result;
-  };
+  }
 
-
+  */
   // Return the results of applying an iterator to each element.
   _.map = function(collection, iterator) {
     // map() is a useful primitive iteration function that works a lot
