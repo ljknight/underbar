@@ -103,7 +103,13 @@
     // TIP: see if you can re-use _.filter() here, without simply
     // copying code in and modifying it
     
-    /* similar to filter:
+    // using _.filter
+
+    return _.filter(collection, function(item) {
+      return !test(item);
+    });
+
+    /* without using _.filter
 
     var result = [];
 
@@ -116,12 +122,6 @@
     return result;
 
     */
-    
-    // using filter:
-
-    return _.filter(collection, function(item) {
-      return !test(item);
-    });
     
   };
 
@@ -226,6 +226,12 @@
   // Determine whether all of the elements match a truth test.
   _.every = function(collection, iterator) {
     //TIP: Try re-using reduce() here.
+    
+    // using _.reduce 
+    // ???
+
+    // without using _.reduce
+    
     var result = true;
 
     if (arguments.length < 2) {
@@ -240,13 +246,6 @@
 
     return result; 
 
-
-
-  //   return _.reduce(collection, function(accumulator, item) {
-  //     if(!iterator(item)) {
-  //       return false;
-  //     } 
-  //   }, true);
   };
 
   // Determine whether any of the elements pass a truth test. If no iterator is
@@ -254,6 +253,11 @@
   _.some = function(collection, iterator) {
     // TIP: There's a very clever way to re-use every() here.
     
+    // using _.every 
+    // ???
+
+    // without using _.every
+
     var result = false;
     if (arguments.length < 2) {
       iterator = _.identity;
@@ -266,6 +270,7 @@
     });
 
     return result;
+    
   };
 
 
@@ -287,7 +292,16 @@
   //   }, {
   //     bla: "even more stuff"
   //   }); // obj1 now contains key1, key2, key3 and bla
-  _.extend = function(obj) {
+  _.extend = function(destination) {
+
+    _.each(arguments, function(obj) {
+      _.each(obj, function(value, key) {
+        destination[key] = value;
+      });
+    });
+
+    return destination;
+  
   };
 
   // Like extend, but doesn't ever overwrite a key that already
