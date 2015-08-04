@@ -359,13 +359,13 @@
     // save every argument
     var result = {};
 
-    return function(arg) {
-      if (!(arg in result)) {
+    return function(key) {
+      if (!(key in result)) {
         // associate argument with its function & only done one time
-        result[arg] = func.apply(this, arguments);
+        result[key] = func.apply(this, arguments);
       } 
       // pull function using its argument
-      return result[arg];
+      return result[key];
     };
   };
 
@@ -421,9 +421,21 @@
    * but nothing beyond here is required.
    */
 
-  // Calls the method named by functionOrKey on each value in the list.
+  // Calls the method named by methodName on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
-  _.invoke = function(collection, functionOrKey, args) {
+  _.invoke = function(collection, methodName, args) {
+
+    if (typeof methodName === 'function') {
+      return _.map(collection, function(value) {
+       return methodName.apply(value);
+      });
+    } else {
+      return _.map(collection, function(value) {
+        console.log(value);
+        return value[methodName].apply(value);
+      });
+    }
+
   };
 
   // Sort the object's values by a criterion produced by an iterator.
