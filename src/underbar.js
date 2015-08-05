@@ -424,7 +424,7 @@
   // Calls the method named by methodName on each value in the list.
   // Note: You will need to learn a bit about .apply to complete this.
   _.invoke = function(collection, methodName, args) {
-
+    // where does args go?
     if (typeof methodName === 'function') {
       return _.map(collection, function(value) {
        return methodName.apply(value);
@@ -462,14 +462,14 @@
     
     //find innerarray with longest length first?
 
-    for (var i = 0; i < arguments.length; i++) {
-      for (var j = 0; j < arguments[i].length; j++) {
-        var innerResult = [];
-        result.push(arguments[i][j]);
+    // for (var i = 0; i < arguments.length; i++) {
+    //   for (var j = 0; j < arguments[i].length; j++) {
+    //     var innerResult = [];
+    //     result.push(arguments[i][j]);
         
-      }
-    }
-    console.log(result);
+    //   }
+    // }
+    // console.log(result);
 
   };
 
@@ -477,17 +477,20 @@
   // The new array should contain all elements of the multidimensional array.
   //
   // Hint: Use Array.isArray to check if something is an array
-  _.flatten = function(nestedArray, result) {
-    /*var flattened = [];
+  _.flatten = function(nestedArray) {
+    var result = [];
     
-    for (var i = 0; i < nestedArray.length; i++) {
-      for (var j = 0; j < nestedArray[i].length; j++) {
-        flattened.push(nestedArray[i][j]);
-        
+    var checkForArray = function(arr) {
+      for (var i = 0; i < arr.length; i++) {
+        if (Array.isArray(arr[i])) {
+          checkForArray(arr[i]);
+        } else {
+          result.push(arr[i]);
+        }
       }
-    }
-
-    console.log(flattened);*/
+    };
+    checkForArray(nestedArray);
+    return result;
   };
 
   // Takes an arbitrary number of arrays and produces an array that contains
